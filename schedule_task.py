@@ -4,9 +4,9 @@ import subprocess
 
 def run_daily_task():
     subprocess.Popen(['python', 'main.py'])
-    time.sleep(120)
+    time.sleep(30)
     subprocess.Popen(['python', 'main.py'])
-    time.sleep(120)
+    time.sleep(30)
     subprocess.Popen(['python', 'main.py'])
     print("Task running")
 
