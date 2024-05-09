@@ -71,9 +71,9 @@ def click_start_time(bot):
                 )
             title = anchor_tag.get_attribute('title')
             if "Unavailable" in title:
+                # timeslot unavailable; mark as such in database and update bot's start hour.
                 update_booked(bot.start_hour, 1)
                 new_start_hour = get_start_hour(bot)
-                print("NSH:", new_start_hour)
                 if new_start_hour is not None:
                     bot.start_hour = new_start_hour
                 else:
@@ -104,6 +104,9 @@ def format_hour(hour):
 
 def get_formatted_date():
     current_date = datetime.now()
+    if current_date.hour >= 23:
+        # add 1 day if our bot runs before midnight
+        current_date = current_date + timedelta(days=1)
     next_day = current_date + timedelta(days=1)
     formatted_date = next_day.strftime("%A, %B %#d, %Y")
     return formatted_date

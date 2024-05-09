@@ -10,7 +10,7 @@ def run_daily_task():
     subprocess.Popen(['python', 'main.py'])
     print("Task running")
 
-schedule.every().day.at("00:00").do(run_daily_task)
+schedule.every().day.at("23:59:57").do(run_daily_task)
 print("Running schedule_task.py")
 
 while True:
