@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from Bot import Bot
-from booking_logic import get_start_hour, click_next_button, click_start_time, select_end_time, submit_times, enter_email, enter_password, click_continue_button, click_submit_booking_button, get_formatted_date, format_hour, conn
+from booking_logic import click_next_button, click_start_time, select_end_time, submit_times, enter_email, enter_password, click_continue_button, click_submit_booking_button, get_formatted_date, format_hour, conn
 
 c = conn.cursor()
 bots = {} # email : Bot object
@@ -17,7 +17,7 @@ def main():
     init_timeslots_table()
     init_bots_table()
     config = configparser.ConfigParser()
-    config.read('config2.ini')
+    config.read('config.ini')
 
     processes = []
 
