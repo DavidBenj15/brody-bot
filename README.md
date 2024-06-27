@@ -12,7 +12,7 @@ In the project directory, open your terminal and execute the following command:\
 To customize the bot, run configure.py with any of the following command options:
 * <code>--starthour</code>: the earliest time the bot will book from.
 * <code>--endhour</code>: the latest time the bot will book to.
-* <code>--roomlink</code>: the link to the study room that the bot will book.\
+* <code>--roomlink</code>: the link to the study room that the bot will book. Visit [here](https://jhu.libcal.com/spaces?lid=1195&gid=2086&c=0) to find a room to book.\
 For example, running:\
-<code>configure.py --starthour 10 --endhour 22 --roomlink "https://jhu.libcal.com/space/7913"</code>\
+<code>configure.py --starthour 10 --endhour 22 --roomlink https://jhu.libcal.com/space/7913</code>\
 would configure the bot to book room 2006 from 10 AM to 10 PM every day.
