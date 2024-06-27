@@ -7,6 +7,7 @@ def main():
 
     parser.add_argument("--starthour", type=float, help="Earliest time bot will book from.")
     parser.add_argument("--endhour", type=float, help="Latest time bot will book from.")
+    parser.add_argument("--roomlink", type=str, help="Link to the room the bot will book.")
     
     args = parser.parse_args()
 
@@ -16,7 +17,9 @@ def main():
         args.starthour = prev_starthour
     if not args.endhour:
         args.endhour = prev_endhour
-    validate_hours(args.starthour, args.endhour)
+    validate_args(args.starthour, args.endhour)
+    if args.roomlink:
+        validate_roomlink(args.roomlink)
 
     configs = vars(args)
     write_configs(configs)
@@ -34,7 +37,7 @@ def load_previous_configs(file_path='user_config.ini'):
         raise ValueError("UserSettings configuration not found in", file_path)
 
 
-def validate_hours(starthour, endhour):
+def validate_args(starthour, endhour):
     if endhour <= starthour:
         print("Error: endhour must be greater than starthour.")
         sys.exit(1)
@@ -44,6 +47,15 @@ def validate_hours(starthour, endhour):
     if (starthour) % 0.5 != 0 or (endhour) % 0.5 != 0:
         print("Error: hours must be divisible by 0.5.")
         sys.exit(1)
+
+
+def validate_roomlink(link):
+    url = "https://jhu.libcal.com/space/"
+    if not link.startswith(url) or not len(link) > len(url):
+        print("Error: roomlink must begin with https://jhu.libcal.com/space/...")
+        sys.exit(1)
+
+
 
 def write_configs(configs):
     user_config = configparser.ConfigParser()
