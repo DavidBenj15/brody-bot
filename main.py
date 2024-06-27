@@ -10,14 +10,17 @@ from booking_logic import click_next_button, click_start_time, select_end_time, 
 
 c = conn.cursor()
 bots = {} # email : Bot object
-ROOM_LINK = "https://jhu.libcal.com/space/7913"
-ROOM_NUMBER = "2006"
+ROOM_LINK = ""
+START_HOUR = -1
+END_HOUR = -1
+
 
 def main():
     init_timeslots_table()
     init_bots_table()
+    read_user_config()
     config = configparser.ConfigParser()
-    config.read('config.ini')
+    config.read('credentials_config.ini')
 
     processes = []
 
@@ -44,6 +47,16 @@ def main():
 
     write_confirmations()
 
+
+def read_user_config():
+    config = configparser.ConfigParser()
+    config.read('user_config.ini')
+    ROOM_LINK = config['UserSettings']['roomlink']
+    START_HOUR = config['UserSettings']['starthour']
+    END_HOUR = config['UserSettings']['endhour']
+    print(ROOM_LINK, START_HOUR, END_HOUR)
+
+
 def init_timeslots_table():
     c.execute("""SELECT name FROM sqlite_master WHERE type='table' AND name='Timeslots';""")
     if c.fetchone():
@@ -59,11 +72,9 @@ def init_timeslots_table():
                 email text
             )""")
         
-    start_hour = 10
-    end_hour = 23.5
-    num_slots = int((end_hour - start_hour) * 2) # number of 30 minute slots
+    num_slots = int((END_HOUR - START_HOUR) * 2) # number of 30 minute slots
     for i in range(num_slots):
-        hour = start_hour + (i * 0.5)
+        hour = START_HOUR + (i * 0.5)
         with conn:
             c.execute("INSERT INTO Timeslots VALUES (:hour, :booked, :email)",
                       {'hour': hour, 'booked': 0, 'email': ''})
