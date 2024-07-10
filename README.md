@@ -16,3 +16,7 @@ To customize the bot, run configure.py with any of the following command options
 For example, running:\
 <code>configure.py --starthour 10 --endhour 22 --roomlink https://jhu.libcal.com/space/7913</code>\
 would configure the bot to book room 2006 from 10 AM to 10 PM every day.
+
+## Known Issues
+* SQLite serves well as a lightweight database to keep state between Multiprocessing processes. However, it does not handle write-heavy applications well, which may cause the program to store inaccurate states during runtime. For example, when several bots try to write to the database in a short period of time, some timeframes may not be marked as "booked" correctly.
+* As the number of bots deployed concurrently scales, the chance that one or multiple bots fails at booking a timeframe increases. This may be related to the user's machine's processing power, or the number of requests being sent to the site at the same time.
