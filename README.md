@@ -1,4 +1,4 @@
-# JHU BrodyBot
+# JHU BrodyBot 📚🤖
 
 This bot allows you to book a specified room in the Johns Hopkins Brody/MSE library for up to an entire day. The bot will run at midnight every night, so you won't have to worry about staying up to book a study room anymore.
 
